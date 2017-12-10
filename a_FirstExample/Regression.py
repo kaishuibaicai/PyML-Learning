@@ -13,16 +13,21 @@ for sample in open('C:\Users\Administrator\Desktop\PyML-Learning\\a_FirstExample
 	x.append(float(_x))
 	y.append(float(_y))
 
- 
+# 读取完数据后，将它们转化为numpy数组以方便进一步的处理
 x, y = np.array(x), np.array(y)
 
+# 标准化
 x = (x - x.mean()) / x.std()
-
+# 将原始数据以散点图的形式画出
 # plt.figure()
 # plt.scatter(x, y, c='g', s=6)
 # plt.show()
 
+# 在（-2,4）这个区间上取100个点作为画图的基础
 x0 = np.linspace(-2, 4, 100)
+# 利用numpy的函数定义训练并且返回多项式回归模型的函数
+# deg参数代表模型中的n，亦即模型中的多项式的次数
+# 返回的模型能够根据输入的x(默认是x0)，返回相对应的预测的y
 def get_model(deg):
 	return lambda input_x=x0: np.polyval(np.polyfit(x, y, deg), input_x)
 
