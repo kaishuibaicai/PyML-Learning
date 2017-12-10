@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 x, y = [], []
 
 # 遍历数据集，变量sample对应的正是一个个样本
-for sample in open('C:\Users\Administrator\Desktop\PyML-Learning\\a_FirstExample\prices.txt', 'r'):
+for sample in open("C:\Users\Administrator\Desktop\PyML-Learning\\a_FirstExample\prices.txt", "r"):
 	# 由于数据是由逗号隔开的，所以调用Python中的split方法并将逗号作为参数传入
 	_x, _y = sample.split(',')
 	# 将字符串数据转换为浮点数
@@ -31,22 +31,23 @@ x0 = np.linspace(-2, 4, 100)
 def get_model(deg):
 	return lambda input_x=x0: np.polyval(np.polyfit(x, y, deg), input_x)
 
-
+# 根据参数n、输入的x，y返回相对应的损失
 def get_cost(deg, input_x, input_y):
 	return 0.5 * ((get_model(deg)(input_x) - input_y) ** 2).sum()
 
-
+# 定义测试参数集并根据它进行各种实验
 test_set = (1, 4, 10)
 for d in test_set:
+	# 输出相应的损失
 	print(get_cost(d, x, y))
 
-
+# 画出相应的图像
 plt.scatter(x, y, c="g", s=20)
 for d in test_set:
 	plt.plot(x0, get_model(d)(), label="degree = {}".format(d))
-
+# 将横轴、纵轴的范围分别限制在（-2,4）、（10^5,8*10^5）
 plt.xlim(-2, 4)
 plt.ylim(1e5, 8e5)
-
+# 调用legend方法使曲线对应的label正确显示
 plt.legend()
 plt.show()
