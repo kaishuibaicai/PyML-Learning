@@ -1,14 +1,19 @@
+# 导入需要用的库
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+# 定义存储输入数据（x）和目标数据（y）的数组
 x, y = [], []
 
+# 遍历数据集，变量sample对应的正是一个个样本
 for sample in open('C:\Users\Administrator\Desktop\PyML-Learning\\a_FirstExample\prices.txt', 'r'):
+	# 由于数据是由逗号隔开的，所以调用Python中的split方法并将逗号作为参数传入
 	_x, _y = sample.split(',')
+	# 将字符串数据转换为浮点数
 	x.append(float(_x))
 	y.append(float(_y))
 
-
+ 
 x, y = np.array(x), np.array(y)
 
 x = (x - x.mean()) / x.std()
