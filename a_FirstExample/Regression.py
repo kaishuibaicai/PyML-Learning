@@ -22,7 +22,7 @@ x = (x - x.mean()) / x.std()
 # plt.figure()
 # plt.scatter(x, y, c='g', s=6)
 # plt.show()
-
+         
 # 在（-2,4）这个区间上取100个点作为画图的基础
 x0 = np.linspace(-2, 4, 100)
 # 利用numpy的函数定义训练并且返回多项式回归模型的函数
