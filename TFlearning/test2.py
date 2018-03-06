@@ -78,4 +78,20 @@ _ = linear_regressor.train(
 	steps = 100
 	)
 
+# Create an input function for predictions.
+# Note: Since we're making just one prediction for each example,we don't
+# need to repeat  or shuffle the data here.
+prediction_input_fn = lambda: my_input_fn(my_feature, targets, num_epochs=1, shuffle=False)
 
+# Call predict() on the linear_regressor to make predictions.
+predictions = linear_regressor.predict(input_fn=prediction_input_fn)
+
+# Format predictions as a NumPy array, so we can calculate error metrics.
+predictions = np.array([item['predictions'][0] for item in predictions])
+
+# Print Mean Squared Error and Root Mean Squared Error.
+mean_squared_error = metrics.mean_squared_error(predictions, targets)
+root_mean_squared_error = math.sqrt(mean_squared_error)
+
+print ('Mean Squared Error (on training data): %0.3f' % mean_squared_error)
+print ('Root Mean Squared Error (on training data): %0.3f' % root_mean_squared_error)
