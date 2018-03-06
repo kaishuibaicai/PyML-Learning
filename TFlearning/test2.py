@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 import math
 from IPython import display
 from matplotlib import cm
@@ -42,7 +45,7 @@ linear_regressor = tf.estimator.LinearRegressor(
 
 
 # define input fuction
-def my_input_fn(feature, targets, batch_size=1, shuffle=True, num_epochs=None):
+def my_input_fn(features, targets, batch_size=1, shuffle=True, num_epochs=None):
 	'''Trains a linear regression model of one feature.
 	Args:
 		features: pandas DataFrame of features
@@ -71,7 +74,7 @@ def my_input_fn(feature, targets, batch_size=1, shuffle=True, num_epochs=None):
 
 
 _ = linear_regressor.train(
-	input_fn = lambda: my_input_fn(my_feature, targets),
+	input_fn = lambda:my_input_fn(my_feature, targets),
 	steps = 100
 	)
 
