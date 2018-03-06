@@ -95,3 +95,18 @@ root_mean_squared_error = math.sqrt(mean_squared_error)
 
 print ('Mean Squared Error (on training data): %0.3f' % mean_squared_error)
 print ('Root Mean Squared Error (on training data): %0.3f' % root_mean_squared_error)
+
+
+min_house_value = california_housing_dataframe['median_house_value'].min()
+max_house_value = california_housing_dataframe['median_house_value'].max()
+min_max_difference = max_house_value - min_house_value
+
+print ('Min. Median_house_value: %0.3f' % min_house_value)
+print ('Max. Median_house_value: %0.3f' % max_house_value)
+print ('Difference between Min. and Max.: %0.3f' % min_max_difference)
+print ('Root Mean Squared Error: %0.3f' % root_mean_squared_error)
+
+calibration_data = pd.DataFrame()
+calibration_data['predictions'] = pd.Series(predictions)
+calibration_data['targets'] = pd.Series(targets)
+print (calibration_data.describe())
