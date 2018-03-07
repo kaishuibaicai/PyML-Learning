@@ -200,17 +200,17 @@ def train_model(learning_rate, steps, batch_size, input_feature='total_rooms'):
 		predictions = np.array([item['predictions'][0] for item in predictions])
 
 		# Compute loss.
-		root_mean_squared_errors = math.sqrt(
+		root_mean_squared_error = math.sqrt(
 			metrics.mean_squared_error(predictions, targets))
 		# Occasionally print the current loss.
 		print ('	period %02d : %0.2f' % (period, root_mean_squared_error))
 		# Add the loss metrics from  this period to our list.
-		root_mean_squared_error.append(root_mean_squared_error)
+		root_mean_squared_errors.append(root_mean_squared_error)
 		# Finally, track the weights and biases over time.
 		# Apply some math to ensure that the data and line are plotted neatly.
 		y_extents = np.array([0, sample[my_label].max()])
 
-		weight = linear_regressor.get_variable_value('linear/linear_model/%s/weights' % input_feature[0])
+		weight = linear_regressor.get_variable_value('linear/linear_model/%s/weights' % input_feature)[0]
 		bias = linear_regressor.get_variable_value('linear/linear_model/bias_weights')
 
 		x_extents = (y_extents - bias) / weight
@@ -220,13 +220,13 @@ def train_model(learning_rate, steps, batch_size, input_feature='total_rooms'):
 	print ('Model training finished.')
 
 	# Output a graph of loss metrics over periods.
-	plt.subplot(1, 2, 3)
+	plt.subplot(1, 2, 2)
 	plt.ylabel('RMSE')
 	plt.xlabel('Periods')
 	plt.title('Root Mean Squared Error vs. Periods')
 	plt.tight_layout()
 	plt.plot(root_mean_squared_errors)
-
+	plt.show()
 	# Output a table with calibration data.
 	calibration_data = pd.DataFrame()
 	calibration_data['predictions'] = pd.Series(predictions)
@@ -234,3 +234,10 @@ def train_model(learning_rate, steps, batch_size, input_feature='total_rooms'):
 	display.display(calibration_data.describe())
 
 	print ('Final RMSE (on training data): %0.2f' % root_mean_squared_error)
+
+train_model(
+	learning_rate = 0.00002,
+	steps = 1000,
+	batch_size = 5,
+	input_feature = 'population'
+	)
