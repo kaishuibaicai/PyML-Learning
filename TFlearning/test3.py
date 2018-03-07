@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import math
 
 from IPython import display
@@ -134,7 +136,7 @@ def train_model(learning_rate, steps, batch_size, input_feature):
 	plt.title("Root Mean Squared Error vs. Periods")
 	plt.tight_layout()
 	plt.plot(root_mean_squared_errors)
-
+	plt.show()
 	# Create a table with calibration data.
 	calibration_data = pd.DataFrame()
 	calibration_data["predictions"] = pd.Series(predictions)
